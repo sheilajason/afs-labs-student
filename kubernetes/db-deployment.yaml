@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: db-deployment
   namespace: sjason
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
       - envFrom:
         - secretRef:
             name: db-secret
-        name: app-deployment
-        image: harbor.dev.afsmtddso.com/sjason-harbor-project/app@sha256:6435cb7ee41391651dbc40a8781952246dbff4771eb145f9589ad6c646b8138f
+        name: db-deployment
+        image: harbor.dev.afsmtddso.com/sjason-harbor-project/db@sha256:39e4c81e7136e9b6b0934692a7a3f7e0b78b0cae3e2905de9c33ae3032d77646
         ports:
-        - containerPort: 5000
+        - containerPort: 5432
